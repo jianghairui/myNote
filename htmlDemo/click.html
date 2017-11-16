@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style>
+		*{margin:0;padding:0;}
+		body,html{width:100%;height:100%;}
+	</style>
+</head>
+<body bgcolor="">
+<span></span>
+</body>
+</html>
+<script src="./js/jquery.js"></script>
+<script type="text/javascript">
+/* 鼠标点击特效 */
+	var a_idx = 0;
+ 
+  	$('body').click(function(e){
+  		var a = ["","","",""]
+  		var $i = $("<span/>").text(a[a_idx]);
+        a_idx = (a_idx + 1) % a.length;
+		var x = e.pageX ,y = e.pageY;
+		$i.css({
+			"z-index": 999,
+			"top": y - 20,
+			"left": x,
+			"position": "absolute",
+			"font-weight": "bold",
+			"font-size":"25px",
+			"color": "green"
+        });
+        $("body").append($i);
+        $i.animate({
+			"top": y - 180,
+			"opacity": 0
+        } ,2000 ,function() {
+            $i.remove();
+        });
+
+  	})
+</script>

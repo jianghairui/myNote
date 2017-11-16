@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+</head>
+<body>
+<pre>
+	 css：子元素div 上下左右居中方法总结
+
+　　最近在面试，不停地收到了知识冲击，尤其是对于一些基础的css、html、js问题居多，所以自我也在做反思，今天就css问题，如何让一个子元素div块元素上下左右居中 (以下总结方法，都已得到验证)。
+
+　　情景一：一个浏览器页面中，只有一个div模块，让其上下左右居中
+
+　　　　　　解决方案：  { position:fixed;
+
+　　　　　　　　　　　　  left:0;
+
+　　　　　　　　　　　　　right:0;
+
+　　　　　　　　　　　　　top:0;
+
+　　　　　　　　　　　　　bottom:0;
+
+　　　　　　　　　　　　　margin:auto; }
+
+　　　　　　备注：此处小编使用position:fixed为最佳方案，因为position：fixed定位是相对于整个浏览器页面的。
+
+　　情景二：一个父元素div，一个已知宽度、高度的子元素div(200*300)
+
+　　　　　　解决方案： 1、position布局
+
+　　　　　　　　　　　　　{
+
+　　　　　　　　　　　　　　position:absolute/fixed;
+
+　　　　　　　　　　　　　　top:50%;
+
+　　　　　　　　　　　　　　left:50%;
+
+　　　　　　　　　　　　　　margin-left:-100px;
+
+　　　　　　　　　　　　　　margin-top:-150px;
+
+　　　　　　　　　　　　　　}
+
+　　情景三:一个父元素div，一个未知宽度、高度的子元素div
+
+　　　　　　解决方案： 1、position布局，position设为absolute，其他同情景一
+
+　　　　　　　　　　　 2、display：table
+
+　　　　　　　　　　　　父级元素：{ display:table;}
+
+　　　　　　　　　　　　子级元素： { display:table-cell;vertical-align:middle }
+
+　　　　　　　　　　　 3、flex布局
+
+　　　　　　　　　　　　父级元素：{ display:flex;flex-direction:row;justify-content:center;align-items:center;}
+
+　　　　　　　　　　　　子级元素：{flex:1}
+</pre>
+</body>
+</html>

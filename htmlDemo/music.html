@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>音乐播放器</title>
+	<meta charset="utf-8">
+	<style>
+	audio{
+		border-radius:5px;
+	}
+	li{
+		cursor:pointer;
+	}
+	ol{
+		background:#eeeeee;
+		width:260px;
+		border-radius:10px;
+	}
+	.player{
+		width:300px;
+		height:450px;
+		margin:50px;
+	}
+	.playerbody{
+		margin-top:10px;
+	}
+	.class{background-color:deepskyblue;color:blue;}
+	</style>
+</head>
+<body>
+<div class="player">
+	<div class="playerhead">
+		<audio id="player" src="music/Beyoncé - Listen.mp3" controls="true" onended="fun()"></audio>
+	</div>
+	<div class="playerbody">
+		<input id="only" type="checkbox">单曲循环
+		<button onclick="prev()">上一曲</button>
+		<button onclick="play_pause()">开始/暂停</button>
+		<button onclick="fun()">下一曲</button>
+	</div>
+	<div class="playerlist">
+		<ol type="1">
+			<li onclick="check_song(0,event)">Beyoncé - Listen</li>
+			<li onclick="check_song(1,event)">Birdy - Skinny Love</li>
+			<li onclick="check_song(2,event)">Declan Galbraith - An Angel</li>
+			<li onclick="check_song(3,event)">Emilia - Big Big World</li>
+			<li onclick="check_song(4,event)">浮夸</li>
+			<li onclick="check_song(5,event)">Burning</li>
+			<li onclick="check_song(6,event)">Without U</li>
+			<li onclick="check_song(7,event)">Just One Last Dance</li>
+			<li onclick="check_song(8,event)">Just Tonight</li>
+			<li onclick="check_song(9,event)">滚滚红尘</li>
+			<li onclick="check_song(10,event)">天下有情人</li>
+			<li onclick="check_song(11,event)">容易受伤的女人</li>
+			<li onclick="check_song(12,event)">Yesterday Once More</li>
+			<li onclick="check_song(13,event)">Empire</li>
+			<li onclick="check_song(14,event)">Dangerous</li>
+		</ol>
+	</div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+	var musics=['music/Beyoncé - Listen.mp3','music/Birdy - Skinny Love.mp3','music/Declan Galbraith - An Angel.mp3','music/Emilia - Big Big World.mp3','music/浮夸.mp3','music/Maria Arredondo - Burning（燃烧）.mp3','music/Mariah Carey - Without You(Album Version).mp3','music/Sarah Connor - Just One Last Dance.mp3','music/The Pretty Reckless - Just Tonight.mp3','music/陈淑桦 - 滚滚红尘.mp3','music/齐豫 - 天下有情人.mp3','music/王菲 - 容易受伤的女人.mp3','music/Carpenters-Yesterday Once More.mp3','music/Empire-Shakira.mp3','music/Michael Jackson-Dangerous.mp3'];
+	var i=0;
+	function fun(){
+		var player = document.getElementById('player');
+		var only = document.getElementById('only');
+		var lis = document.getElementsByTagName('li');
+		if (only.checked == true){
+			player.play();
+		}else{
+			if(i == 14){
+				i = 0;
+			}else{
+				i++;
+			}
+			player.src= musics[i];
+			player.play();
+			var lis=document.getElementsByTagName('li');
+			for(var j=0;j<lis.length;j++){
+				if(j==i){
+					lis[j].className='class';
+				}else{
+					lis[j].className='';
+				}
+			}			
+		}
+	}
+	
+	function prev(){
+		if(i==0){
+			i=14;
+		}else{
+			i--;
+		}
+		var player = document.getElementById('player');
+		player.src=musics[i];
+		player.play();
+		var lis=document.getElementsByTagName('li');
+			for(var j=0;j<lis.length;j++){
+				if(j==i){
+					lis[j].className='class';
+				}else{
+					lis[j].className='';
+				}
+			}
+	}
+	
+	function play_pause(){
+		var player=document.getElementById('player');
+		if(player.paused==true){
+			player.play();
+		}else{
+			player.pause();
+		}
+	}
+	
+	function check_song(num,event){
+		i = num;
+		var li=event.target;
+		var lis=document.getElementsByTagName('li');
+		for(var j=0;j<lis.length;j++){
+			lis[j].className='';
+		}
+		li.className = 'class';
+		var player = document.getElementById('player');
+		player.src = musics[i];
+		player.play();
+	}
+</script>

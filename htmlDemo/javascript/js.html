@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>第一课</title>
+</head>
+<body>
+<table align="center" width="600">
+    <thead>
+        <tr>
+            <th>NAME</th>
+            <th>AGE</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr align="center">
+            <td>Jiang</td>
+            <td>26</td>
+        </tr>
+    </tbody>
+</table>
+<div id="second">second row</div>
+<img id="myimage" onclick="changeImage()" src="http://www.w3school.com.cn/i/eg_bulboff.gif"><br/>
+<p id="demo">
+    JavaScript 能改变 HTML 元素的样式。
+</p>
+<button type="button" onclick="myFunction2()">点击这里</button><br>
+</body>
+</html>
+<script>
+    //document.write('first row<br>');
+    var demo = document.getElementById('second');
+    demo.innerHTML = 'Hello World<br>';
+
+    function changeImage()
+    {
+        element=document.getElementById('myimage')
+        if (element.src.match("bulbon"))
+        {
+            element.src="http://www.w3school.com.cn/i/eg_bulboff.gif";
+        }
+        else
+        {
+            element.src="http://www.w3school.com.cn/i/eg_bulbon.gif";
+        }
+    }
+
+    function myFunction()
+    {
+        x=document.getElementById("demo") // 找到元素
+        //console.log(x.style)
+        x.style.color="#ff0000";          // 改变样式
+    }
+
+    function myFunction2()
+    {
+        document.write("糟糕！文档消失了。");
+    }
+
+    var str="Hello world!"
+    document.write(str.match("world") + "<br />")
+    document.write(str.match("World") + "<br />")
+    document.write(str.match("worlld") + "<br />")
+    document.write(str.match("world!") + '<br/>')
+    var str="1 plus 2 equal 3"
+    document.write(str.match(/\d+/g)+'<br/>')
+
+    document.write(isNaN(123));
+    document.write(isNaN(-1.23));
+    document.write(isNaN(5-2));
+    document.write(isNaN(0));
+    document.write(isNaN("Hello"));
+    document.write(isNaN("2005/12/12"));
+    var data = 'Jiang'
+    var data
+    alert(data)
+
+</script>

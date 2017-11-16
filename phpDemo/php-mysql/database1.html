@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>数据库增删改查</title>
+	<meta charset="utf-8">
+</head>
+<body>
+<center>
+	<h1>CMD（Command）命令提示符操作Mysql数据库代码</h1>
+</center>
+	<pre>
+		配置环境变量
+		D:\phpStudy\MySQL\bin\(mysql.exe安装位置)
+		D:\phpStudy\php\php-5.4.45\(php.exe安装位置)
+		链接数据库>mysql -u root -p输入密码;
+		断开数据库>quit;
+		启动mysql服务>net start mysql;
+		停止mysql服务>mysqladmin -uroot shutdown -proot;
+		创建数据库>create database 数据库名；
+		CREATE DATABASE `dataname` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+		查看数据库>show databases;
+		选择数据库>use 数据库名；
+		删除数据库>drop database if exists 数据库名；
+		创建表格>
+		create table name(
+		id int primary key auto_increment,
+		user varchar(30) not null,
+		password varchar(30) not null,
+		createtime date
+		);
+		查看创建表代码>show create table 表名;
+		查看表结构>show columns from 数据表名 [from 数据库名];
+		describe 数据表名；
+		desc 数据表名 列名；
+
+		修改表结构
+
+		增加新字段email,修改字段user类型为varchar(40)。
+		alter table 表名 add email varchar(50) not null,modify user varchar(40);
+		删除字段email。
+		alter table 表名 drop (column) email;
+		删除表
+		drop table if exists 数据表名;
+		修改表格字段名
+		alter table emp change name newname int;
+
+		重命名表
+		rename table 表名 to 新表名;
+
+		插入数据
+		insert into tbname (,,) values ('','','');
+
+		查询数据库记录
+		select *(字段1,字段2,字段3) from tbname where id(=?,between m and n,in(x,y,z));
+		按序查询在最后加上 
+		order by id desc(asc); 
+		limit用法
+		select * from user1 WHERE id BETWEEN 16 AND 30 (ORDER BY id asc) limit 0,4;
+		(从0开始选择4条记录);
+		修改记录
+		update tbname set 字段1="value1",字段2="value2" where condition;	
+		删除记录
+		delete (字段名) from tbname where condition;
+	</pre>
+		<center><h2>!!!数据备份!!!</h2></center>
+	<pre>
+		mysqldump -uroot -proot mysql > F:\mysql.txt;数据库备份
+		mysql -uroot -proot mysql < F:\mysql.txt;数据库恢复	
+	</pre>
+		<h4>
+		设置路径<br/>
+		D:\cd phpStudy>cd www>php -S localhost:9000 (cd..)
+	    </h4>
+	
+
+
+</body>
+</html>

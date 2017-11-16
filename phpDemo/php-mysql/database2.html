@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SQL查询2017-2-16</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		body{background:#eee;}
+		.text{width:90%;height:auto;background:#fff;margin:0 auto;padding:10px;border-radius:10px;}
+	</style>
+</head>
+<body>
+<center>
+	<h1>SQL查询笔记</h1>
+</center>
+<div class="text">
+<pre>
+
+<b>查询最近七天过生日的人</b>
+	SELECT * from emp where 
+	DATEDIFF(NOW(),CONCAT(DATE_FORMAT(NOW(),'%Y-'),DATE_FORMAT(Birthday,'%m-%d'))) < 7
+	AND 
+	DATEDIFF(NOW(),CONCAT(DATE_FORMAT(NOW(),'%Y-'),DATE_FORMAT(Birthday,'%m-%d'))) > -7;
+<b>查询各班级前三名</b>
+	select * from fenshu b where 
+	(select count(*) from fenshu c where c.class=b.class and c.score > b.score) < 3;
+<b>替换表内字符串REPLACE(str,from_str,to_str)</b>
+	UPDATE goods set filepath=REPLACE(filepath,'localhost/shop','www.itclearstream.info');
+<b>查询日期为本年的第几周</b>
+	SELECT * FROM g_user WHERE DATEDIFF(NOW(),regtime) < 7;
+	select *,weekofyear(regtime) as week from g_user; 
+<b>Update更改多条记录</b>
+	UPDATE kt_depart SET departname=CASE id
+	WHEN 40 THEN '40'
+	WHEN 46 THEN '46'
+	END,
+	test=CASE id
+	WHEN 40 THEN 'test'
+	WHEN 46 THEN 'test'
+	END
+	WHERE id IN (40,46);
+<b>查询时间戳等于今天的</b>
+	-- insert into test (uid,picid,ctime) values (10,10,unix_timestamp(now()));
+	-- select * from test where TO_DAYS(FROM_UNIXTIME(ctime))=TO_DAYS(NOW());
+<b>FIND_IN_SET('A','A,B,C')返回TRUE / FALSE;</b>
+<b>查询排名(包含并列排名)</b>
+	SELECT t.*,(SELECT COUNT(s.score)+1 FROM toplist s WHERE s.score>t.score) rank FROM toplist t;
+<b>查询排名(不含并列)</b>
+	SELECT @rownum := @rownum+1 AS rownum,t.* FROM (SELECT @rownum :=0) r,toplist t ORDER BY t.score DESC;
+</pre>
+</div>
+	
+
+
+</body>
+</html>

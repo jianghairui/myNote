@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta charset="utf-8">
+    <style>
+        html,body{width:100%;height:100%}
+        .container{width:100%;text-align: center}
+    </style>
+</head>
+<body>
+<div class="container">
+    <video id="video" src="" controls style="width:1024px;height:575px" poster="./poster.jpg">浏览器不兼容</video>
+    <br>
+    <a href="javascript:;" onclick="play()" style="font-size:20px">《小丑回魂》</a>
+</div>
+
+</body>
+</html>
+<script>
+    var video = document.getElementById('video')
+
+    function play() {
+        video.src = './video.mp4'
+        video.play()
+    }
+
+</script>
