@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IF ANDRIOD OR IOS</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+</head>
+<body>
+<h1>判断是安卓机还是苹果机</h1>
+</body>
+</html>
+<script type="text/javascript">
+    var u = navigator.userAgent;
+    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    console.log(u)
+    if(isAndroid) {
+        alert('手机系统为Android')
+    }else if(isiOS) {
+        alert('手机系统为IOS')
+    }else {
+        alert('请用移动端登录')
+    }
+
+    function is_weixin() {
+        var ua = window.navigator.userAgent.toLowerCase();
+        if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+            alert("是微信浏览器");
+        } else {
+            alert("不是微信浏览器");
+        }
+    }
+    is_weixin()
+
+
+</script>

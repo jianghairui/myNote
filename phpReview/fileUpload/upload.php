@@ -1,9 +1,13 @@
 <?php
+//echo '<pre>';
+//print_r($_FILES['file']);
+//echo '</pre>';
+//die;
 if ((($_FILES["file"]["type"] == "image/gif")
         || ($_FILES["file"]["type"] == "image/jpeg")
         || ($_FILES["file"]["type"] == "image/png")
         || ($_FILES["file"]["type"] == "image/pjpeg"))
-    && ($_FILES["file"]["size"] < 8000000)) {
+    && ($_FILES["file"]["size"] < 800000000)) {
 
     if ($_FILES["file"]["error"] > 0) {
         echo "Return Code: " . $_FILES["file"]["error"] . "<br />";
