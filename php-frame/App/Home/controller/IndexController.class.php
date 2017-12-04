@@ -25,7 +25,7 @@ class IndexController extends Controller {
         ";
         echo '</pre>';
         echo '<h2>欢迎使用OH My Deer框架!</h2>';
-        p($_SERVER);
+        //p($_SERVER);
 
 //        $this->id = 1;
 //        $this->name = '姜海蕤';

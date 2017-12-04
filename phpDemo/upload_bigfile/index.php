@@ -14,6 +14,11 @@ require_once ("upload.class.php");
 <html>
 <head>
     <meta charset="utf-8">
+    <style>
+        .progress { position:relative; width:400px; border: 1px solid #ddd; padding: 1px; border-radius: 3px; }
+        .bar { background-color: #B4F5B4; width:0%; height:20px; border-radius: 3px; }
+        .percent { position:absolute; display:inline-block; top:3px; left:48%; }
+    </style>
 </head>
 <body>
 <form id="form" action="upload.php" method="post" enctype="multipart/form-data">
@@ -25,18 +30,21 @@ require_once ("upload.class.php");
         </tr>
     </table>
 </form>
-<div id="progress" class="progress" style="margin-bottom:15px;display:none;">
-    <div class="label">0%</div>
+
+<div class="progress">
+    <div class="bar"></div >
+    <div class="percent">0%</div >
 </div>
 
 <script src="js/jquery.js"></script>
 <script src="js/jquery.form.js"></script>
 <script>
+    var bar = $('.bar');
+    var percent = $('.percent');
     $("#button").click(function() {
         $("#form").ajaxSubmit({
             dataType:"json",
             beforeSubmit:function(e) {
-                $('#progress').show();
                 setTimeout('fetch_progress()', 2000);
             },
             success:function(e) {
@@ -49,15 +57,17 @@ require_once ("upload.class.php");
         })
     })
 
+
     function fetch_progress(){
         $.get('get_progress.php',{}, function(data){
             var progress = parseInt(data);
-            console.log(data)
-            $('#progress .label').html(progress + '%');
+
+            bar.width(data+'%')
+            $('#progress .percent').html(data+'%');
             if(progress < 100){
                 setTimeout('fetch_progress()', 500);    //当上传进度小于100%时，显示上传百分比
             }else{
-                $('#progress .label').html('完成!'); //当上传进度等于100%时，显示上传完成
+                $('#progress .percent').html('完成!'); //当上传进度等于100%时，显示上传完成
             }
         }, 'html');
     }
