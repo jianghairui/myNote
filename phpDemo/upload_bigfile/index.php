@@ -45,7 +45,19 @@ require_once ("upload.class.php");
         $("#form").ajaxSubmit({
             dataType:"json",
             beforeSubmit:function(e) {
-                setTimeout('fetch_progress()', 2000);
+                var file = $("input[name='file1']")[0].files[0]
+                console.log(file);
+                var filesize = file.size/1024/1024;
+                var filetype = file.type;
+                if(filesize > 100){
+                    alert("文件大小超过限制，最多100M");
+                    return false;
+                }
+                if(filetype != "image/gif" && filetype != "image/jpeg" && filetype != "image/png" && filetype != "image/pjpeg") {
+                    alert("图片格式不符");
+                    return false;
+                }
+//                setTimeout('fetch_progress()', 2000);
             },
             success:function(e) {
                 console.log(e)
@@ -60,14 +72,15 @@ require_once ("upload.class.php");
 
     function fetch_progress(){
         $.get('get_progress.php',{}, function(data){
+            console.log(data)
             var progress = parseInt(data);
 
             bar.width(data+'%')
-            $('#progress .percent').html(data+'%');
+            $('.percent').html(data+'%');
             if(progress < 100){
                 setTimeout('fetch_progress()', 500);    //当上传进度小于100%时，显示上传百分比
             }else{
-                $('#progress .percent').html('完成!'); //当上传进度等于100%时，显示上传完成
+                $('.percent').html('完成!'); //当上传进度等于100%时，显示上传完成
             }
         }, 'html');
     }
