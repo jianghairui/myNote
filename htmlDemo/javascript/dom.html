@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOM文档对象</title>
+    <meta charset="UTF-8">
+    <script type="text/javascript">
+        function createNewDoc() {
+            var newDoc=document.open("text/html","replace");
+            var txt="<html><body>学习DOM对象!</body></html>";
+            newDoc.write(txt);
+//            newDoc.close();
+        }
+
+        function delNewDoc() {
+
+        }
+    </script>
+</head>
+<body>
+
+<input type="button" value="创建一个新文档" onclick="createNewDoc()">
+<!--<input type="button" value="清除新创建的文档" onclick="delNewDoc()">-->
+
+</body>
+</html>

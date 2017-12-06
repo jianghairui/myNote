@@ -57,7 +57,7 @@ require_once ("upload.class.php");
                     alert("图片格式不符");
                     return false;
                 }
-//                setTimeout('fetch_progress()', 2000);
+                setTimeout('fetch_progress()', 2000);
             },
             success:function(e) {
                 console.log(e)
