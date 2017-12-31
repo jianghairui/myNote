@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <!--<script src="./hammer.js"></script>-->
+    <!--<script src="./hammer-time.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.js"></script>
+
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            background-color: #000;
+            color: #FFF;
+            margin: 0;
+        }
+
+        .flex-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .center-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .square {
+            width: 200px;
+            height: 200px;
+            margin: 30px;
+            background-color: #7E57C2;
+            transition: transform 300ms ease-out;
+        }
+    </style>
+
+<body class="flex-column center-center">
+
+<header>Swipe Left or Right</header>
+<div class="square center-center"></div>
+
+
+<script>
+
+    // Get a reference to an element
+    var square = document.querySelector('.square');
+
+    // Create a manager to manager the element
+    var manager = new Hammer.Manager(square);
+
+    // Create a recognizer
+    var Swipe = new Hammer.Swipe();
+
+    // Add the recognizer to the manager
+    manager.add(Swipe);
+
+    // Declare global variables to swiped correct distance
+    var deltaX = 0;
+    var deltaY = 0;
+
+    // Subscribe to a desired event
+    manager.on('swipe', function(e) {
+        deltaX = deltaX + e.deltaX;
+        var direction = e.offsetDirection;
+        var translate3d = 'translate3d(' + deltaX + 'px, 0, 0)';
+
+        if (direction === 4 || direction === 2) {
+            e.target.innerText = deltaX;
+            e.target.style.transform = translate3d;
+        }
+    });
+
+
+</script>
+</body>
+</html>
