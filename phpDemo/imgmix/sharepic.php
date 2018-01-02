@@ -136,8 +136,67 @@ function imageresize($filename,$newname,$newwidth,$newheight){
     }
 }
 
+function radius_img($imgpath = './t.png', $radius = 15) {
+    $ext     = pathinfo($imgpath);
+    $src_img = null;
+    switch ($ext['extension']) {
+        case 'jpg':
+            $src_img = imagecreatefromjpeg($imgpath);
+            break;
+        case 'png':
+            $src_img = imagecreatefrompng($imgpath);
+            break;
+    }
+    $wh = getimagesize($imgpath);
+    $w  = $wh[0];
+    $h  = $wh[1];
+    // $radius = $radius == 0 ? (min($w, $h) / 2) : $radius;
+    $img = imagecreatetruecolor($w, $h);
+    //这一句一定要有
+    imagesavealpha($img, true);
+    //拾取一个完全透明的颜色,最后一个参数127为全透明
+    $bg = imagecolorallocatealpha($img, 255, 255, 255, 127);
+    imagefill($img, 0, 0, $bg);
+    $r = $radius; //圆 角半径
+    for ($x = 0; $x < $w; $x++) {
+        for ($y = 0; $y < $h; $y++) {
+            $rgbColor = imagecolorat($src_img, $x, $y);
+            if (($x >= $radius && $x <= ($w - $radius)) || ($y >= $radius && $y <= ($h - $radius))) {
+                //不在四角的范围内,直接画
+                imagesetpixel($img, $x, $y, $rgbColor);
+            } else {
+                //在四角的范围内选择画
+                //上左
+                $y_x = $r; //圆心X坐标
+                $y_y = $r; //圆心Y坐标
+                if (((($x - $y_x) * ($x - $y_x) + ($y - $y_y) * ($y - $y_y)) <= ($r * $r))) {
+                    imagesetpixel($img, $x, $y, $rgbColor);
+                }
+                //上右
+                $y_x = $w - $r; //圆心X坐标
+                $y_y = $r; //圆心Y坐标
+                if (((($x - $y_x) * ($x - $y_x) + ($y - $y_y) * ($y - $y_y)) <= ($r * $r))) {
+                    imagesetpixel($img, $x, $y, $rgbColor);
+                }
+                //下左
+                $y_x = $r; //圆心X坐标
+                $y_y = $h - $r; //圆心Y坐标
+                if (((($x - $y_x) * ($x - $y_x) + ($y - $y_y) * ($y - $y_y)) <= ($r * $r))) {
+                    imagesetpixel($img, $x, $y, $rgbColor);
+                }
+                //下右
+                $y_x = $w - $r; //圆心X坐标
+                $y_y = $h - $r; //圆心Y坐标
+                if (((($x - $y_x) * ($x - $y_x) + ($y - $y_y) * ($y - $y_y)) <= ($r * $r))) {
+                    imagesetpixel($img, $x, $y, $rgbColor);
+                }
+            }
+        }
+    }
+    return $img;
+}
+
 function imagebackgroundmycard($avatar_path,$avatar ,$im, $dst_x, $dst_y, $image_w, $image_h, $radius) {
-    $resource = imagecreatetruecolor($image_w, $image_h);
     $imghttp = get_headers($avatar_path,true);
     if($imghttp['Content-Type'] == "image/jpeg") {
         $source = imagecreatefromjpeg($avatar);
@@ -146,34 +205,17 @@ function imagebackgroundmycard($avatar_path,$avatar ,$im, $dst_x, $dst_y, $image
         $source = imagecreatefrompng($avatar);
     }
     if(!$source){
-        $source  = imagecreatetruecolor(132, 132);
-        $bg = imagecolorallocate($source, 0, 200, 0);
+        $source  = imagecreatetruecolor($image_w, $image_h);
+        $bg = imagecolorallocate($source, 0, 0, 0);
         imagefill($source, 0, 0, $bg);
-        imagecopyresized($resource, $source, 0, 0, 0, 0, $image_w, $image_h, 132, 132);
+        imagecopyresized($im, $source, $dst_x, $dst_y, 0, 0, $image_w, $image_h, $image_w, $image_h);
     }else {
         $avatar_size = getimagesize($avatar);
-        imagecopyresized($resource, $source, 0, 0, 0, 0, $image_w, $image_h, $avatar_size[0], $avatar_size[1]);
+        $source = radius_img($avatar,$avatar_size[0]/2);
+        imagecopyresized($im, $source, $dst_x, $dst_y, 0, 0, $image_w, $image_h, $avatar_size[0], $avatar_size[1]);
     }
-
-    $lt_corner = get_lt_rounder_corner($radius, 255, 255, 0);//圆角的背景色
-    imagecopymerge($resource, $lt_corner, 0, 0, 0, 0, $radius, $radius, 100);
-    $lb_corner = imagerotate($lt_corner, 90, 0);
-    imagecopymerge($resource, $lb_corner, 0, $image_h - $radius, 0, 0, $radius, $radius, 100);
-    $rb_corner = imagerotate($lt_corner, 180, 0);
-    imagecopymerge($resource, $rb_corner, $image_w - $radius, $image_h - $radius, 0, 0, $radius, $radius, 100);
-    $rt_corner = imagerotate($lt_corner, 270, 0);
-    imagecopymerge($resource, $rt_corner, $image_w - $radius, 0, 0, 0, $radius, $radius, 100);
-    imagecopy($im, $resource, $dst_x, $dst_y, 0, 0, $image_w, $image_h);
 }
 
-function get_lt_rounder_corner($radius, $color_r, $color_g, $color_b)
-{
-    $img = imagecreatetruecolor($radius, $radius);
-    $bgcolor = imagecolorallocate($img, $color_r, $color_g, $color_b);
-    $fgcolor = imagecolorallocate($img, 0, 0, 0);
-    imagefill($img, 0, 0, $bgcolor);
-    imagefilledarc($img, $radius, $radius, $radius * 2, $radius * 2, 180, 270, $fgcolor, IMG_ARC_PIE);
-    imagecolortransparent($img, $fgcolor);
-    return $img;
-}
+
+
 ?>
