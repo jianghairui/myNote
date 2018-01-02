@@ -1,5 +1,6 @@
 <?php
 header("Content-type:image/png");
+error_reporting(E_ALL &~ E_NOTICE &~ E_WARNING);
 mb_internal_encoding("UTF-8");
 $score = 100;
 $nickname = '姜海蕤啊';
@@ -146,7 +147,7 @@ function imagebackgroundmycard($avatar_path,$avatar ,$im, $dst_x, $dst_y, $image
     }
     if(!$source){
         $source  = imagecreatetruecolor(132, 132);
-        $bg = imagecolorallocate($source, 0, 0, 0);
+        $bg = imagecolorallocate($source, 0, 200, 0);
         imagefill($source, 0, 0, $bg);
         imagecopyresized($resource, $source, 0, 0, 0, 0, $image_w, $image_h, 132, 132);
     }else {
@@ -154,7 +155,7 @@ function imagebackgroundmycard($avatar_path,$avatar ,$im, $dst_x, $dst_y, $image
         imagecopyresized($resource, $source, 0, 0, 0, 0, $image_w, $image_h, $avatar_size[0], $avatar_size[1]);
     }
 
-    $lt_corner = get_lt_rounder_corner($radius, 255, 255, 255);//圆角的背景色
+    $lt_corner = get_lt_rounder_corner($radius, 255, 255, 0);//圆角的背景色
     imagecopymerge($resource, $lt_corner, 0, 0, 0, 0, $radius, $radius, 100);
     $lb_corner = imagerotate($lt_corner, 90, 0);
     imagecopymerge($resource, $lb_corner, 0, $image_h - $radius, 0, 0, $radius, $radius, 100);

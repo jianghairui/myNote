@@ -4,7 +4,7 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 mb_internal_encoding("UTF-8");
 $score = 90;
 $nickname = '清流';
-$avatar = './avatar.png';
+//$avatar = './avatar.png';
 $avatar_path = 'http://wx.qlogo.cn/mmopen/OzibWZOJxYlwe5TeiaC99sJeSNhZ0q3lLtqdiaiaZhYpxaBcbty0oXibE4WJ9dfiaTE7Fzlcu9VgKbHjlDoGqkVdacwwGt20xUZ6qb/132';
 $str = '      ' . '一大堆文字';
 $rank = 19;
