@@ -28,5 +28,8 @@ $di->set("zhangsan",function(){
 $di->set("lisi",function(){
     return new User("李四");
 });
-echo $di->get("zhangsan")->getUserName();
-echo $di->get("lisi")->getUserName();
+//echo $di->get("zhangsan")->getUserName();
+//echo '<br>';
+//echo $di->get("lisi")->getUserName();
+include 'function.php';
+p($di->get('zhangsan')->getUserName());
