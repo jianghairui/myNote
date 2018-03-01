@@ -1,4 +1,7 @@
 <?php
+/**
+ * 闭包函数
+ */
 header("Content-Type:text/html;charset=utf-8");
 class Di{
     private $_factory;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="cookie.js"></script>
+    <script src="js/cookie.js"></script>
 </head>
 <body>
 <form action="doLogin.php" method="post">

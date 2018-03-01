@@ -6,8 +6,7 @@ function xmlToArray($xml){
 libxml_disable_entity_loader(true); 
 $xmlstring = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA); 
 $val = json_decode(json_encode($xmlstring),true); 
- 
-return $val; 
+return $val;
 
 } 
 
