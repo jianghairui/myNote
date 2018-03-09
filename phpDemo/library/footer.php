@@ -4,5 +4,5 @@
 </html>
 
 <?php
-mysql_close();
+mysqli_close($link);
 ?>

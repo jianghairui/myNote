@@ -5,8 +5,8 @@ include "header.php";
 if(isset($_POST['sub'])){
 	$sql = "update bookstore set bookname='{$_POST['bookname']}',publisher='{$_POST['publisher']}',publishdate='".strtotime($_POST['publishdate'])."',price='{$_POST['price']}',author='{$_POST['author']}',detail='{$_POST['detail']}' where bookid={$_POST['bookid']}";
 
-	mysql_query($sql);
-		if(mysql_affected_rows()>0){
+	mysqli_query($link,$sql);
+		if(mysqli_affected_rows($link)>0){
 			echo "修改成功<br>";
 		}else{
 			echo "修改失败".mysql_error().'<br>';
@@ -17,8 +17,8 @@ if(isset($_POST['sub'])){
 
 if(!empty($_GET['bookid'])){
 		$sql = "select * from bookstore where bookid={$_GET['bookid']}";
-		$result = mysql_query($sql);
-		while(list($bookid,$bookname,$author,$detail,$publisher,$publishdate,$price) = mysql_fetch_row($result)){
+		$result = mysqli_query($link,$sql);
+		while(list($bookid,$bookname,$author,$detail,$publisher,$publishdate,$price) = mysqli_fetch_row($result)){
 			
 	
 ?>
