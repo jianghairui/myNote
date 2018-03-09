@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=MEnmYZ8ZGrPBk74u2iEy6v4pXh2vvFCj"></script>
+	<style>
+        html,body{width:100%;height:100%;margin:0}
+    </style>
+</head>
+<body>
+	<div style="width:100%;height:100%;display:flex;justify-content:center;align-items:center;">
+	<h1>距离下班还有</h1>
+    <h1 id="clock"></h1>
+</div>
+</body>
+</html>
+<script>
+	function timestampToTime(timestamp) {
+        var mydate = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+	    // var str = "" + mydate.getFullYear() + "年";
+	    // str += (Array(2).join('0') + (mydate.getMonth() + 1)).slice(-2) + "月";
+	    // str += (Array(2).join('0') + mydate.getDate()).slice(-2) + "日 "; 
+	    var str = "";   
+	    str += (Array(2).join('0') + mydate.getHours()).slice(-2) + "小时";
+	    str += (Array(2).join('0') + mydate.getMinutes()).slice(-2) + "分钟";
+	    str += (Array(2).join('0') + mydate.getSeconds()).slice(-2) + "秒";
+        return str;
+    }
+    
+	var endtime = new Date('2018-03-09 18:00:00');
+	var nowtime = new Date();
+	var time_diff = endtime.getTime()/1000 - nowtime.getTime()/1000 - 3600*8;
+  	
+	document.getElementById("clock").innerHTML=timestampToTime(time_diff)
+	var timer = setInterval(function(){
+		if(time_diff > -8*3600) {
+	   		time_diff--
+	   		document.getElementById("clock").innerHTML=timestampToTime(time_diff)
+			}else {
+			window.clearInterval(timer)
+			}
+	},1000);
+   
+</script>
