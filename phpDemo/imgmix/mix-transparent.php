@@ -2,38 +2,30 @@
 
 header('Content-Type:image/png');
 //创建画布
-$ban_width = 750;
-$ban_height = 1008;
-$img = imagecreatetruecolor($ban_width, $ban_height);
-$white = imagecolorallocate($img, 255, 255,255);
-imagefill($img, 0, 0, $white);
-
-$src_header_path = './avatar.jpg';
-$src_header = imagecreatefromstring(file_get_contents($src_header_path));
-$src_header_arr = getimagesize($src_header_path);
-$header_w = 750;
-$header_h = 1008;
-$header = imagecreatetruecolor($header_w, $header_h);
-imagecopyresized($header, $src_header, 0, 0, 0, 0, $header_w, $header_h, $src_header_arr[0], $src_header_arr[1]);
-imagecopymerge($img, $header, 0, 0, 0, 0, $header_w, $header_h, 100);
-
+//$src_header_path = './avatar.jpg';
+//$src_header = imagecreatefromjpeg($src_header_path);
+//imagesavealpha($src_header,true);
+//$header = imagecreatetruecolor(imagesx($src_header), imagesy($src_header));
+//imagecopy($header,$src_header,0,0,0,0,imagesx($src_header), imagesy($src_header));
 
 
 ////添加指纹图覆盖原图
 $src_header_path = './p.png';
-$src_header = imagecreatefromstring(file_get_contents($src_header_path));
-$src_header_arr = getimagesize($src_header_path);
+$src_header = imagecreatefrompng($src_header_path);
+imagesavealpha($src_header,true);
+$header2 = imagecreatetruecolor(imagesx($src_header), imagesy($src_header));
+imagecopy($header2,$src_header,0,0,0,0,imagesx($src_header), imagesy($src_header));
 
-$header2 = imagecreatetruecolor(750, 1008);
-$color=imagecolorallocate($header2,255,255,255);
-imagecolortransparent($header2,$color);
-imagefill($header2,0,0,$color);
+$bg = imagecreatetruecolor(750,1008);
+$bgcolor = imagecolorallocate($bg,255,255,255);
+imagecolortransparent($bg,$bgcolor);
+imagefill($bg,0,0,$bgcolor);
+imagecopy($bg,$header2,0,0,0,0,imagesx($src_header), imagesy($src_header));
 
-imagecopyresized($header2, $src_header, 0, 0, 0, 0, $header_w, $header_h, $src_header_arr[0], $src_header_arr[1]);
-imagecopymerge($img, $header2, 0, 0, 0, 0, $header_w, $header_h, 100);
+//imagecopyresampled ($header, $bg, 0, 0, 0, 0, 750, 1008, 750,1008);
 
-imagepng($img);
-imagedestroy($img);
+imagepng($bg);
+imagedestroy($bg);
 //图片改变大小
 function imageresize($filename,$newname,$newwidth,$newheight){
 
