@@ -15,13 +15,14 @@ function randColor($image) {
  * @param $height 图片高度
  * @param $type 类型0:纯数字,1:纯字母,2:字母数字混合
  * @param $length 验证码长度
- * @param $fontsize 验证码字体
+ * @param $fontsize 验证码字体大小
  * @return string 返回验证码
  */
 function generateVerify($width,$height,$type,$length,$fontsize) {
     $image = imagecreatetruecolor($width,$height);
     $white = imagecolorallocate($image,255,255,255);
     imagefilledrectangle($image,0,0,$width,$height,$white);
+    //匹配验证码字符类型
     switch($type) {
         case 0:
             $str = join('',array_rand(range(0,9),$length));
@@ -40,6 +41,7 @@ function generateVerify($width,$height,$type,$length,$fontsize) {
     for ($i=1;$i<=100;$i++) {
         imagesetpixel($image,mt_rand(0,$width),mt_rand(0,$height),randColor($image));
     }
+    //输出后销毁图片
     header('Content-Type:image/png');
     imagepng($image);
     imagedestroy($image);

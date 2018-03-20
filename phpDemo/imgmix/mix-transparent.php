@@ -2,11 +2,11 @@
 
 header('Content-Type:image/png');
 //创建画布
-//$src_header_path = './avatar.jpg';
-//$src_header = imagecreatefromjpeg($src_header_path);
-//imagesavealpha($src_header,true);
-//$header = imagecreatetruecolor(imagesx($src_header), imagesy($src_header));
-//imagecopy($header,$src_header,0,0,0,0,imagesx($src_header), imagesy($src_header));
+$src_header_path = './avatar.jpg';
+$src_header = imagecreatefromjpeg($src_header_path);
+imagesavealpha($src_header,true);
+$header = imagecreatetruecolor(imagesx($src_header), imagesy($src_header));
+imagecopy($header,$src_header,0,0,0,0,imagesx($src_header), imagesy($src_header));
 
 
 ////添加指纹图覆盖原图
