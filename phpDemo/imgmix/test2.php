@@ -18,5 +18,5 @@ imagecopyresampled($image_3,$image_2,0,0,0,0,imagesx($image_2),imagesy($image_2)
 //再将指纹图片copy到已经具有人物图像的真彩色画布中，同样也不会失真
 imagecopyresampled($image_3,$image_1,0,0,0,0,imagesx($image_1),imagesy($image_1),imagesx($image_1),imagesy($image_1));
 //imagecopymerge($image_3,$image_1, 0,0,0,0,imagesx($image_1),imagesy($image_1), 100);
-imagegif($image_3);
+imagegif($image_3,'./aaa.png');
 ?>
