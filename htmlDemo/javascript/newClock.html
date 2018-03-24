@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style>
+        html,body{width:100%;height:100%;margin:0}
+    </style>
+</head>
+<body>
+	<div style="width:100%;height:100%;display:flex;justify-content:center;align-items:center;">
+	<h1>倒计时:</h1>
+    <h1 id="clock"></h1>
+</div>
+</body>
+</html>
+<script>
+	function date_format(format) {
+        var mydate = new Date();//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+	    var year = mydate.getFullYear();
+	    var month = (Array(2).join('0') + (mydate.getMonth() + 1)).slice(-2);
+	    var day = (Array(2).join('0') + mydate.getDate()).slice(-2);
+	    var hour = (Array(2).join('0') + mydate.getHours()).slice(-2);
+	    var minute = (Array(2).join('0') + mydate.getMinutes()).slice(-2);
+	    var second = (Array(2).join('0') + mydate.getSeconds()).slice(-2);
+
+	    str = format.replace('%Y',year);
+	    str = str.replace('%m',month);
+	    str = str.replace('%d',day);
+	    str = str.replace('%H',hour);
+	    str = str.replace('%i',minute);
+	    str = str.replace('%s',second);
+        return str;
+    }
+
+    var time = new Date().getTimezoneOffset()
+	console.log(time)
+
+    //
+    // console.log(date_format('%Y年%m月%d日 %H:%i:%s'))
+    // var timer = setInterval(function () {
+    //     console.log(date_format('%Y年%m月%d日 %H:%i:%s'))
+    // },1000)
+    
+
+   
+</script>
