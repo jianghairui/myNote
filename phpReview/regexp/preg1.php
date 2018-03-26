@@ -76,6 +76,27 @@ if($result) {
 }
 
 
+/*------定界符/和#的区别-----*/
+
+$regex = '/^http:\/\/([\w.]+)\/([\w]+)\/([\w]+)\.html$/i';
+$str = 'http://www.youku.com/show_page/id_ABCDEFG.html';
+$matches = array();
+if(preg_match($regex, $str, $matches)){
+    var_dump($matches);
+}else {
+    echo 'doesnt match';
+}
+
+echo "<br>";
+
+$regex = '#^http://([\w.]+)/([\w]+)/([\w]+)\.html$#i';
+$str = 'http://www.youku.com/show_page/id_ABCDEFG.html';
+$matches = array();
+if(preg_match($regex, $str, $matches)){
+    var_dump($matches);
+}
+echo "<br>";
+
 
 
 
