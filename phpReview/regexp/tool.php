@@ -57,5 +57,18 @@ function input_limit($str,$limit_num,$char='utf8') {
     return true;
  }
 
-//function is
-var_dump(input_limit('我是中国人',10));
+function create_unique_number($letter = '')
+{
+    $time = explode (" ", microtime ());
+    $timeArr = explode('.',$time [0]);
+    $mtime = array_pop($timeArr);
+    $fulltime = $letter.$time[1].$mtime;
+    return $fulltime;
+}
+
+$arr = array();
+for($i=0;$i<10000;$i++) {
+    $arr[] = create_unique_number('');
+}
+echo count($arr) . '<br>';
+echo count(array_unique($arr)) . '<br>';
