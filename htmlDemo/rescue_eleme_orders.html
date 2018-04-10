@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+</head>
+<body>
+<button>请求数据</button>
+<script src="./src/js/jquery.js"></script>
+<script>
+	var url = 'https://api.dayuanwan.com.cn/Api/Area/Eleme/plan'
+	var page_no = 1
+	var store_id = 18
+	function sendPost(page_no) {
+		$.ajax({
+			url:url,
+			type:"post",
+			dataType:"json",
+			data:{page_no:page_no,store_id:store_id},
+			success:function(data) {
+				console.log(data)
+				if(data > 0) {
+					page_no++
+					sendPost(page_no)
+				}else {
+					console.log('完成')
+				}
+			},
+			error:function(data) {
+				alert('请求失败')
+			}
+		})
+	}
+
+	$('button').click(function() {
+		sendPost(page_no)
+	})
+</script>
+</body>
+</html>
