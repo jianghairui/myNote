@@ -1,7 +1,6 @@
 <?php
 include './dbconfig.php';
 $databases = getResult($con,'SHOW DATABASES');
-
 ?>
 <!DOCTYPE html>
 <html>

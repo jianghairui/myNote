@@ -42,7 +42,7 @@ if($_GET['dbversion']) {
             $path = $_GET['dbname'];
             $arr = recurDir($path);
             foreach ($arr as $k=>$v) {
-                echo '<tr><td>'.str_replace($path . '/','',$v).'</td><td>'.date('Y年m月d日 H:i:s',filemtime($v)).'</td><td><button>下载</button></a>&nbsp;&nbsp;&nbsp;<a href="?dbversion='.$v.'&dbname='.$_GET['dbname'].'"><button>删除</button></a>&nbsp;&nbsp;&nbsp;<button onclick="backup(\''.$v.'\')">还原</button></td></tr>';
+                echo '<tr><td>'.str_replace($path . '/','',$v).'</td><td>'.date('Y年m月d日 H:i:s',filemtime($v)).'</td><td><a href="'.$v.'"><button>下载</button></a>&nbsp;&nbsp;&nbsp;<a href="?dbversion='.$v.'&dbname='.$_GET['dbname'].'"><button>删除</button></a>&nbsp;&nbsp;&nbsp;<button onclick="backup(\''.$v.'\')">还原</button></td></tr>';
             }
         }
         ?>
