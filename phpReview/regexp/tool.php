@@ -66,9 +66,19 @@ function create_unique_number($letter = '')
     return $fulltime;
 }
 
+function p_makeOrderNum($firstMark='F') {
+    $hSeconds = bcmul(substr(date('His'), 0, 2), 3600);
+    $mSeconds = bcmul(substr(date('His'), 2, 2), 60);
+    $sSeconds = substr(date('His'), 4, 2);
+    $seconds = $hSeconds+$mSeconds+$sSeconds;
+    $orderSn = $firstMark.substr(date('Ymd'), 2, 6).$seconds.rand(100001,999999);   //订单号
+    return $orderSn;
+}
+
 $arr = array();
 for($i=0;$i<10000;$i++) {
-    $arr[] = create_unique_number('');
+    $arr[] = create_unique_number('Q');
+//    echo create_unique_number('Q') . '<br>';
 }
 echo count($arr) . '<br>';
 echo count(array_unique($arr)) . '<br>';
