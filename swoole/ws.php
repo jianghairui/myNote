@@ -38,6 +38,7 @@ class Ws
     }
 
     public function onMessage($ws, $frame) {
+	var_dump($frame);
         $arr = explode('::',$frame->data);
         //todo 10s task
 //        $data = array(
