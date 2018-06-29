@@ -10,7 +10,7 @@ $link2 = 'http://blog.csdn.net/chentaoxie/article/details/52425531';
 
 $server = $_SERVER;
 
-//GitHub is OK!
+//GitHub is NOT OK!
 
 
 /*
