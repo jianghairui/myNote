@@ -11,6 +11,7 @@ $link2 = 'http://blog.csdn.net/chentaoxie/article/details/52425531';
 $server = $_SERVER;
 
 //GitHub is NOT OK!
+//20180802 DALAS SSSERVER IS OK
 
 
 /*
