@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>手机键盘影响布局解决办法</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+	<style>
+		body,html{
+			height: 100%;margin: 0;padding: 0;
+		}
+	</style>
+</head>
+<body>
+	<div style="width:100%;height: 50%;background: teal;display: flex;justify-content: center;align-items: center;">
+		<input id="myInput" type="text" name="" style="width:50%;height: 50px;">
+	</div>
+	<div style="width:100%;height: 50%;background: green">
+		<!-- <textarea style="width: 100%;height: 100%">
+			
+		</textarea> -->
+	</div>
+
+<script type="text/javascript" src="./jquery.js"></script>
+<script type="text/javascript">
+	var h = window.innerHeight;
+	var myInput = document.getElementById('myInput');
+	myInput.addEventListener('focus',handler,false);
+
+	function handler(){
+	    $('body').height(h);
+	}
+</script>
+</body>
+</html>
