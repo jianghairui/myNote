@@ -46,6 +46,12 @@
 	SELECT t.*,(SELECT COUNT(s.score)+1 FROM toplist s WHERE s.score>t.score) rank FROM toplist t;
 <b>查询排名(不含并列)</b>
 	SELECT @rownum := @rownum+1 AS rownum,t.* FROM (SELECT @rownum :=0) r,toplist t ORDER BY t.score DESC;
+
+<b>
+	117.117739,39.071805
+	SELECT *,(2 * 6378.137* ASIN(SQRT(POW(SIN(PI()*(111.86141967773438-lon)/360),2)+COS(PI()*33.07078170776367/180)* COS(lat * PI()/180)*POW(SIN(PI()*(33.07078170776367-lat)/360),2)))) AS juli
+FROM `mp_require` ORDER BY juli ASC LIMIT 0,20;
+</b>
 </pre>
 </div>
 	

@@ -1,0 +1,27 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./src/skin/laypage.css">
+    <script src="./src/laypage.js"></script>
+    <title></title>
+    <style></style>
+</head>
+<body>
+
+    <div id="page1"></div>
+
+<script>
+    var curr = ''
+    laypage({
+        cont: 'page1', //容器。值支持id名、原生dom对象，jquery对象。
+        pages: 100, //通过后台拿到的总页数
+        skip: false, //是否开启跳页
+        skin: '#6665fe',
+        curr: curr || 1, //当前页
+        jump: function(obj, first){ //触发分页后的回调
+            console.log(obj)
+        }
+    });
+</script>
+</body>
+</html>

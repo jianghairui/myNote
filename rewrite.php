@@ -13,11 +13,16 @@ $server = $_SERVER;
 //GitHub is NOT OK!
 //20180802 DALAS SSSERVER IS OK
 
+$arr = array('a'=>'A','b'=>'B','c'=>'C');
+$arrs = array();
 
-/*
- *
- *这是PHPStorm 测试异地GITHUB下拉代码是否自动上传
- *
- * */
 
-//   2018-08-27 GIT提交测试abvf
+
+function multi_upload($arr) {
+    foreach ($arr as $k=>$v) {
+        return $v;
+    }
+
+}
+
+var_dump(serialize($arrs));
