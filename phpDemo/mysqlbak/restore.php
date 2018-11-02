@@ -1,17 +1,19 @@
 <?php
 include './dbconfig.php';
-$databases = getResult($con,'SHOW DATABASES');
+if($_GET['dbversion']) {
+    @unlink($_GET['dbversion']);
+}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <title></title>
-    <script src="./js/jquery-2.0.3.min.js"></script>
+    <script src="js/jquery-2.0.3.min.js"></script>
     <style>
         *{padding:0;margin:0}
         body,html{width: 100%;height: 100%;}
-        .button{width:150px;height:35px;font-size: 20px}
+        button{width:50px;height:35px;font-size: 20px}
         tr > td {text-align: center}
     </style>
 </head>
@@ -29,21 +31,24 @@ $databases = getResult($con,'SHOW DATABASES');
         <caption></caption>
         <thead>
         <tr>
-            <th>数据库名称</th>
+            <th>数据库版本名称</th>
+            <th>备份时间</th>
             <th>操作</th>
         </tr>
         </thead>
         <tbody>
         <?php
-        foreach ($databases as $v) {
-            if(!in_array($v['Database'],array('information_schema','performance_schema'))) {
-                echo '<tr><td>'.$v['Database'].'</td><td><button class="button" onclick="backup(\'' .$v['Database']. '\')">备份</button></td></tr>';
+        if($_GET['dbname']) {
+            $path = $_GET['dbname'];
+            $arr = recurDir($path);
+            foreach ($arr as $k=>$v) {
+                echo '<tr><td>'.str_replace($path . '/','',$v).'</td><td>'.date('Y年m月d日 H:i:s',filemtime($v)).'</td><td><a href="'.$v.'"><button>下载</button></a>&nbsp;&nbsp;&nbsp;<a href="?dbversion='.$v.'&dbname='.$_GET['dbname'].'"><button>删除</button></a>&nbsp;&nbsp;&nbsp;<button onclick="backup(\''.$v.'\')">还原</button></td></tr>';
             }
         }
         ?>
         <tr>
-            <td colspan="2">
-                <h3><a href="./downloadlist.php">下载历史数据库</a></h3>
+            <td colspan="3">
+                <h3><a href="">清除全部数据库</a></h3>
             </td>
         </tr>
         </tbody>
@@ -55,7 +60,7 @@ $databases = getResult($con,'SHOW DATABASES');
         $("#loading").css('display','block')
         $('.button').attr('disabled',true)
         $.ajax({
-            url:"./backup.php",
+            url:"./restoreAjax.php",
             dataType:"json",
             type:"post",
             data:{dbname:dbname},
