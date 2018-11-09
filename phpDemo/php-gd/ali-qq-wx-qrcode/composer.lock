@@ -1,0 +1,53 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "0f1c725c33b484fa5a443b1d8197ea5e",
+    "packages": [
+        {
+            "name": "dsiddharth2/php-zxing",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dsiddharth2/php-zxing.git",
+                "reference": "a5dded82150d4b38e4b2cded8efd99fdce839aa7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dsiddharth2/php-zxing/zipball/a5dded82150d4b38e4b2cded8efd99fdce839aa7",
+                "reference": "a5dded82150d4b38e4b2cded8efd99fdce839aa7",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Siddharth",
+                    "email": "dsiddharth2@gmail.com"
+                }
+            ],
+            "description": "Wrapper for zxing using php",
+            "time": "2018-07-09T12:07:16+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "dsiddharth2/php-zxing": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
