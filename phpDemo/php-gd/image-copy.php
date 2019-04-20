@@ -9,8 +9,8 @@ $image_1 = imagecreatefrompng($path_1);
 $image_2 = imageresize($path_2,750,1008);
 
 //将$image_1 copy 到 $image_2中
-imagecopyresampled($image_2,$image_1,350,504,350,504,imagesx($image_1),imagesy($image_1),imagesx($image_1),imagesy($image_1));
-imagegif($image_2,'./gen.png');
+imagecopyresampled($image_2,$image_1,375,504,375,504,imagesx($image_1),imagesy($image_1),imagesx($image_1),imagesy($image_1));
+imagegif($image_2);
 
 
 
