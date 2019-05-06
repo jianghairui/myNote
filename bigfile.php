@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('PRC');
 define('ROOT_PATH',__DIR__);
-ini_set('memory_limit','256M');
+ini_set('memory_limit','512M');
 class UploadService
 {
 //    private $filepath;
@@ -75,7 +75,6 @@ class UploadService
     }
 
 }
-
 //实例化并获取系统变量传参
 $upload = new UploadService($_FILES['file']['tmp_name'],$_POST['blob_num'],$_POST['total_blob_num'],$_POST['file_name']);
 //调用方法，返回结果

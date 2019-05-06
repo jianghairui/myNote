@@ -35,9 +35,7 @@
         <span class="btn btn-info btn-upload" style="position: absolute;top: 0;" onclick="$(this).prev('input').trigger('click'); ">上传</span>
     </div>
 
-
 <script>
-    //分片上传
     //上传视频
     var fileNameTime = Date.parse(new Date())/1000;
     var video_file = document.getElementById("video_file");
@@ -102,6 +100,7 @@
                         var pathReturn = responsePath.substr(firstPath,lastPath-firstPath+1);
                         console.log(JSON.parse(pathReturn));
                         alert('上传成功');
+                        fileNameTime = Date.parse(new Date())/1000;
                         xhr = undefined;
                         form_data = undefined;
                     }
