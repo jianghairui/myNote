@@ -42,7 +42,7 @@
     var jdt_s = document.getElementById('finish_video');
     var video_upload = new Upload(jdt_s);
     video_file.onchange = function(){
-        fileNameTime = fileNameTime+1;
+        fileNameTime = fileNameTime + 1;
         video_upload.addFileAndSend(this);
     };
 
@@ -98,11 +98,10 @@
                         var firstPath = responsePath.indexOf("{");
                         var lastPath = responsePath.indexOf("}");
                         var pathReturn = responsePath.substr(firstPath,lastPath-firstPath+1);
-                        console.log(JSON.parse(pathReturn));
-                        alert('上传成功');
-                        fileNameTime = Date.parse(new Date())/1000;
+                        console.log(JSON.parse(pathReturn),'上传成功');
                         xhr = undefined;
                         form_data = undefined;
+                        video_upload = new Upload(jdt_s);
                     }
                 },1000);
             };
