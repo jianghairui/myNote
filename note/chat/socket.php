@@ -1,6 +1,10 @@
 <?php
+//send用户加入
+//send1发送信息
+//send2退出登录
 error_reporting(E_ALL ^ E_NOTICE);
 ob_implicit_flush();
+
 //连接服务器
 $sk = new Sock('0.0.0.0',8000);
 $sk->run();
@@ -18,10 +22,7 @@ class Sock{
 
     public function __construct($address, $port){
         $this->master = $this->WebSocket($address, $port);//resource(2, Socket)  //服务器监听
-        // var_dump($this->master);
         $this->sockets = array($this->master);//array (size=1) 0 => resource(2, Socket) 。运行两个php还是这样
-//        var_dump($this->sockets);
-//        file_put_contents('lz.text',var_dump($this->sockets), FILE_APPEND);
     }
     public function run(){
         /*
@@ -44,17 +45,9 @@ class Sock{
             2,初始状态返回为array(0=>resource(2, Socket),1=>resource(3,Socket))。
             客户来的客户为resource(3,Socket)。则返回的数据为resource(3,Socket).!!!
             */
-            // var_dump($changes);
-            $rr = socket_select($changes,$write,$except,NULL);
-            // var_dump($changes);
-            // var_dump("---*---");
-            //exit;
+            socket_select($changes,$write,$except,NULL);
 
-            // file_put_contents('./lz1.text',json_encode($changes), FILE_APPEND);
-            // file_put_contents('./lz.text','-----', FILE_APPEND);
             foreach($changes as $sock){
-                // var_dump($sock);
-                // var_dump("******");
                 //连接主机的client
                 //$this->master永远是 resource(2, Socket)。相当于一个缓存。两种情况,1:为空,使进程阻塞。2：存刚接收的client。
                 if($sock == $this->master){ //---此处只用来存数据了
@@ -64,27 +57,14 @@ class Sock{
                     //如果没有挂起的连接，socket_accept()将阻塞直到连接成为现在。如果使用了非阻塞套接字已socket_set_blocking()或socket_set_nonblock()，错误将返回。
                     //返回socket_accept()插座资源不得用于接受新的连接。原来的听插座插座，但是,仍然是开放的，可以重复使用。
                     $client = socket_accept($this->master); //resource(3, Socket)。表示接受请求,并创建一个子链接!!
-                    //var_dump($client);
-                    //exit;
                     $key = 'aaa'.rand(10000,99999);
                     $this->sockets[] = $client;
                     $this->users[$key] = array(
                         'socket' => $client,
                         'shou' => false
                     );
-                    // var_dump(1);
-                    // echo 1;
-                    /*
-                    array (size=1)
-                    '57d607085f92a' =>  //$key
-                    array (size=2)
-                    'socket' => resource(3, Socket) //$socket的表现都一样,只有通过$key区分
-                    'shou' => boolean false
-                    */
-                    // file_put_contents('lz.text',json_encode($this->users), FILE_APPEND);
                 }else{ //---此处服务器与客户端发信息
                     //发送消息时走此处
-                    // echo 2;
                     $len = 0;
                     $buffer = '';
                     do{
@@ -102,22 +82,16 @@ class Sock{
                         0x100 数据完整处理
                         */
                         $l = socket_recv($sock,$buf,1000,0);//原来取数据是一个缓慢的过程,要一次一次取数据,并计算每次buf的长度,让总长度不超过设定值
-                        // var_dump($l);
-                        // exit;
-                        // file_put_contents('lz.text','socket_recv', FILE_APPEND);
                         $len += $l;
                         $buffer.=$buf;
-                        // var_dump($buf);
                     } while ($l == 1000);
                     $k = $this->search($sock);//跟据sock返回key值
-                    // file_put_contents('./d.txt', $k.PHP_EOL,FILE_APPEND);
                     if($len < 7){ //发过来的消息太短了,系统就判断 断了,断掉链接。
                         $this->send2($k);//用户退出。1关闭这个$key值对应的socket、删除这条key记录。将sockets数组对象重新排列。
                         continue;
                     }
                     if(!$this->users[$k]['shou']){//判断用户的握手字段是true？否则重新握手。
                         $this->woshou($k,$buffer);
-                        //file_put_contents('lz.text','woshou', FILE_APPEND);
                     }else{ //如果用户已经握手,则与用户之间进行通信。终于可以发消息了！
                         $buffer = $this->uncode($buffer,$k); //返编译
                         if($buffer == false){
@@ -169,8 +143,8 @@ class Sock{
         return $server;
     }
 
+    //对接收到的buffer处理,并回馈握手！！
     function woshou($k,$buffer){
-        //对接收到的buffer处理,并回馈握手！！
         $buf = substr($buffer,strpos($buffer,'Sec-WebSocket-Key:')+18);
         $key = trim(substr($buf,0,strpos($buf,"\r\n")));
 
@@ -182,7 +156,7 @@ class Sock{
         $new_message .= "Connection: Upgrade\r\n";
         $new_message .= "Sec-WebSocket-Accept: " . $new_key . "\r\n\r\n";
         socket_write($this->users[$k]['socket'],$new_message,strlen($new_message));//sokcet,buffer(缓冲区),长度
-        $this->users[$k]['shou']=true;
+        $this->users[$k]['shou'] = true;
         return true;
     }
 
@@ -311,7 +285,6 @@ class Sock{
             socket_write($this->users[$key]['socket'],$str,strlen($str));//接收者
         }
     }
-
     //用户退出
     function send2($k){
         $this->close($k);
@@ -321,9 +294,7 @@ class Sock{
     }
 
     function e($str){
-        //$path=dirname(__FILE__).'/log.txt';
         $str = $str."\n";
-        //error_log($str,3,$path);
         echo iconv('utf-8','gbk//IGNORE',$str);
     }
 
