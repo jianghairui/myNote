@@ -1,0 +1,16 @@
+一、导入 chat.sql 数据库
+
+二、修改数据库配置文件 config.php 
+
+$config = mysql_connect("数据库IP","账号","密码")or die("Mysql Connect Error");
+mysql_select_db("数据库库名");
+
+
+此版本可在电脑端或手机端，微信网页端，同时兼容使用,每次间隔5秒可重新发送信息；
+
+
+有更多建议请联系本站或技术人员
+
+官方网站:  www.dunling.com
+
+技术支持QQ:133355995
