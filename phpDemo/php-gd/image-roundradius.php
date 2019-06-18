@@ -69,4 +69,6 @@ header("content-type:image/png");
 $imgg = radius_img('./avatar.jpg', 66);
 imagepng($imgg);
 imagedestroy($imgg);
+
+
 ?>
