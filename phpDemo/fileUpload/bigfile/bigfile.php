@@ -39,7 +39,8 @@ class UploadService
             }
         }
         header('Content-type: application/json');
-        echo json_encode($data);
+        header('Access-Control-Allow-Origin: *');
+        exit(json_encode($data));
     }
     //建立上传文件夹
     private function touchDir(){
