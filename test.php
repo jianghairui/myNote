@@ -1,13 +1,34 @@
 <?php
+ini_set("max_execution_time", "3600");
+ini_set("memory_limit","1024M");
+//ob_implicit_flush(true);
+//echo str_pad(" ", 256);
 
+
+$list = getDir('./tpic');
+foreach ($list as $k=>&$v) {
+    if($k > 902) {
+        if(substr($v,-3) !== 'jpg') {
+            unset($list[$k]);
+        }else {
+            $imgdst = './tpic_done/' . $k . '.jpg';
+            compressedImage($v,$imgdst);
+            echo $imgdst . ' DONE<br>';
+            usleep(1000);
+        }
+    }
+}
+
+
+//压缩图片
 function compressedImage($imgsrc, $imgdst) {
     list($width, $height, $type) = getimagesize($imgsrc);
 
     $new_width = $width;//压缩后的图片宽
     $new_height = $height;//压缩后的图片高
 
-    if($width >= 1024){
-        $per = 1024 / $width;//计算比例
+    if($width >= 800){
+        $per = 800 / $width;//计算比例
         $new_width = $width * $per;
         $new_height = $height * $per;
     }
@@ -35,22 +56,33 @@ function compressedImage($imgsrc, $imgdst) {
             break;
     }
 }
-
-$imgsrc = './1.jpg';
-$imgdst = './0_1.jpg';
-// compressedImage($imgsrc,$imgdst);
-
-$files = scandir('./tpic');
-
-p($files);
-
-
+//
 function p($Arr) {
     echo '<pre>';
     print_r($Arr);
     echo '</pre>';
 }
+//扫描目录
+function searchDir($path,&$data){
+    if(is_dir($path)){
+        $dp=dir($path);
+        while($file=$dp->read()){
+            if($file!='.'&& $file!='..'){
+                searchDir($path.'/'.$file,$data);
+            }
+        }
+        $dp->close();
+    }
+    if(is_file($path)){
+        $data[]=$path;
+    }
+}
+//获取目录
+function getDir($dir){
+    $data=array();
+    searchDir($dir,$data);
+    return   $data;
+}
 
-//function get
 
 ?>
