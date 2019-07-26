@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+</head>
+
+<body>
+<h1>有中文的序列化会失败</h1>
+    <script src="phpSerializer.js"></script>
+    <script src="utf.js"></script>
+
+    <script>
+        var str = 'a:4:{i:0;s:11:"Jianghairui";i:1;s:2:"27";i:2;s:4:"Male";i:3;s:12:"山海文化";}';
+        console.log(unserialize(str));
+
+    </script>
+
+</body>
+
+</html>
