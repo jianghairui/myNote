@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<script src="./js/L2Dwidget.min.js"></script>
+<script src="./js/L2Dwidget.0.min.js"></script>
+<script>
+
+    var modelname = 'shizuku';
+
+    L2Dwidget.init({
+        "model":{
+            "scale":1,"hHeadPos":0.5,"vHeadPos":0.618,
+            "jsonPath":"./packages/live2d-widget-model-"+modelname+"/assets/"+modelname+".model.json"
+        },
+        "display":{
+            "superSample":2,"width":100,"height":220,"position":"right","hOffset":20,"vOffset":-20
+        },
+        "mobile":{
+            "show":false,"scale":0.5
+        },
+        "react":{
+            "opacityDefault":0.7,"opacityOnHover":0.2
+        }
+    });
+</script>
+<div id="live2d-widget">
+    <canvas id="live2dcanvas" width="200" height="440"
+            style="position: fixed; opacity: 1; right: 0; bottom: 0; z-index: 99999; pointer-events: none;"></canvas>
+</div>
+</body>
+</html>
