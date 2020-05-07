@@ -5,8 +5,7 @@
  * Date: 2018/3/1
  * Time: 16:10
  */
-session_start();
-include '../../function.php';
+include './config.php';
 
 //将SESSION会话数据清空
 $_SESSION = [];

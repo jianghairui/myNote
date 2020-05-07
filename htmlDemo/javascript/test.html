@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<h1 id="clock1"></h1>
+<h1 id="clock2"></h1>
+
+<script>
+
+
+    var time_diff1 = 20;
+    var time_diff2 = -9;
+
+    create_timer(time_diff1,'clock1');
+    create_timer(time_diff2,'clock2');
+
+    function create_timer (time_diff,clock) {
+        if(time_diff <= 0) {
+            document.getElementById(clock).innerHTML = '下班了';
+            return;
+        }
+        document.getElementById(clock).innerHTML=getCountTime(time_diff+8*3600);
+        var timer = setInterval(function(){
+            if(time_diff > 0) {
+                time_diff--;
+                document.getElementById(clock).innerHTML=getCountTime(time_diff+8*3600)
+            }else {
+                window.clearInterval(timer);
+                document.getElementById(clock).innerHTML = '下班了';
+            }
+        },1000);
+    }
+
+    function getCountTime(timestamp) {
+        var mydate = new Date(timestamp * 1000);
+        var str = '';
+        str += (Array(2).join('0') + mydate.getMinutes()).slice(-2) + "m";
+        str += (Array(2).join('0') + mydate.getSeconds()).slice(-2) + "s";
+        return str;
+    }
+
+</script>
+</body>
+</html>
