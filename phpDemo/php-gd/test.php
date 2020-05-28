@@ -2,8 +2,8 @@
 //ini_set('memory_limit','1024m');
 //底层头像图片
 $path_1 = "./test.png";
-$text1 = '1992 0108 0730';
-$text2 = ' 1992 0108 ';
+$text1 = '0528 0528 0528';
+$text2 = ' 0528 0528 ';
 
 $qrcode = imageresize($path_1,400,400);
 
