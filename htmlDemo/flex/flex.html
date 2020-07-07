@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+    <title>flex布局</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		.container {
+			background-color: #eeeeee;
+			/* width: 1000px; */
+			border:1px solid #333333;
+			margin: auto;
+			box-sizing: border-box;
+			display: flex;
+			flex-direction: column;
+			/* align-items: center; */
+			/* justify-content: center; */
+		}
+		.box {
+			background-color: #008080;
+			width: 100%;
+			display: flex;
+			flex-wrap: wrap;
+			/* align-items: center; */
+			align-content: flex-start;
+		}
+		.flex {
+			width: 25%;
+			height: 100px;
+			color:#333333;
+			font-size: 40px;
+			border:1px solid #000000;
+			padding: 10px;
+			box-sizing: border-box;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-grow: 1;
+			order:10;
+		}
+		.flex:last-child {
+			order: 0;
+		}
+		
+		.desc {
+			font-size: 20px;
+			margin-top: 15px;
+			padding-bottom: 50px;
+			line-height: 24px;
+		}
+		.nav-box {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			background-color: #F2DEDE;
+			width: 100%;
+		}
+		.nav {
+			width: 100%;
+			display: flex;
+			list-style: none;
+			
+		}
+		.menu {
+			flex: 1;
+			text-align: center;
+			border: 1px solid #080808;
+			overflow: hidden;
+			height: 35px;
+			line-height: 35px;
+		}
+		
+	</style>
+</head>
+<body>
+	
+<div class="container">
+	<div class="box">
+		<div class="flex">1</div>
+		<div class="flex">2</div>
+		<div class="flex">3</div>
+		<div class="flex">4</div>
+		<div class="flex">5</div>
+		<div class="flex">6</div>
+	</div>
+	<div class="desc">
+		<pre>
+<b>父级属性:</b>
+	display: flex
+	其他属性
+	子元素水平排列
+	justify-content {
+		center  居中
+		space-between 两边对齐
+		space-around  拉手排列
+		flex-start  居左(默认)
+		flex-end  居右
+	} 
+	子元素垂直排列
+	align-item {
+		center  居中
+		flex-end  底部
+		flex-start  顶部
+	}
+	align-content  同上(多行用)
+	
+	flex-direction {
+		row(默认)  
+		column
+		*-reverse  反向
+	}
+	flex-grow {
+		1  定义子元素放大比例
+	}
+	align-self {
+		flex-start 覆盖父级align-items属性
+	}
+	
+	order {
+		默认0  元素排序 从小到大
+	}
+		</pre>
+	</div>
+</div>
+
+<div class="nav-box">
+	<ul class="nav">
+		<li class="menu">首页</li>
+		<li class="menu">购物车</li>
+		<li class="menu">我的</li>
+		<li class="menu">Tade </li>
+	</ul>
+</div>
+	
+
+<script>
+	
+	// var box = document.querySelector('.box');
+	
+	// console.log(box.offsetWidth);
+	
+</script>
+</body>
+</html>
