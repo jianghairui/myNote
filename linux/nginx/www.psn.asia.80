@@ -1,0 +1,6 @@
+server {
+	listen 80;
+	server_name www.psn.asia psn.asia;
+	rewrite ^(.*)$ https://${server_name}$1 permanent;
+}
+

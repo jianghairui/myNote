@@ -1,0 +1,56 @@
+server {
+	listen 443;
+	server_name www.psn.asia;
+
+	# 配置日志文件
+	access_log /var/www/www.psn.asia/public/access.log combined;
+	error_log /var/www/www.psn.asia/public/error.log;
+
+	ssl on;
+        ssl_certificate   cert/www.psn.asia/3115791_www.psn.asia.pem;
+        ssl_certificate_key  cert/www.psn.asia/3115791_www.psn.asia.key;
+        ssl_session_timeout 5m;
+        ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+        ssl_prefer_server_ciphers on;
+
+
+	root /var/www/www.psn.asia/public;
+	index index.html index.htm index.php;
+
+	fastcgi_intercept_errors on;
+
+        #error_page 404 /404.html;
+
+        location / {
+            if (!-e $request_filename) {
+                rewrite ^/(.*)$ /index.php/$1 last;
+                break;
+            }
+            #try_files $uri $uri/ =404;
+        }
+
+# 防盗链
+	location ~* \.(gif|jpg|jpeg|png|bmp|swf|flv|js|css|json)$ {
+                valid_referers *.psn.asia psn.asia www.wcip.net *.servicewechat.com servicewechat.com;
+                if ($invalid_referer) {
+                        return 403;
+                }
+
+                add_header Cache-Control  max-age=86400;
+        }
+
+# php解析设置
+        location ~ [^/]\.php(/|$) {
+            fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+            fastcgi_param PATH_INFO $fastcgi_path_info;
+            include fastcgi.conf;
+            include snippets/fastcgi-php.conf;
+
+            fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+        }
+
+
+
+}
+

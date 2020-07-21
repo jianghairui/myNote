@@ -1,0 +1,63 @@
+server {
+	listen 443;
+	server_name map.psn.asia;
+
+	# 配置日志文件
+	access_log /var/www/map.psn.asia/access.log combined;
+	error_log /var/www/map.psn.asia/error.log;
+
+	ssl on;
+        ssl_certificate   cert/map.psn.asia/3315351_map.psn.asia.pem;
+        ssl_certificate_key  cert/map.psn.asia/3315351_map.psn.asia.key;
+        ssl_session_timeout 5m;
+        ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+        ssl_prefer_server_ciphers on;
+
+
+	root /var/www/map.psn.asia;
+	index index.html index.htm index.php;
+
+	fastcgi_intercept_errors on;
+
+        error_page 404 /404.html;
+
+	set $w $arg_w;
+	set $h $arg_h;
+	
+	if ($w = "") {
+        #	rewrite /href.html https://www.psn.asia last;
+	}	
+	
+	location /imageResize {
+		image_filter resize $arg_w $arg_h;
+                image_filter_buffer 2M;
+		error_page 415 /415.html;
+		try_files /$arg_img =404;
+	}
+
+	location ~* /(.+)\.(jpg|gif|png)$ {
+		set $flag 1;
+		set $w 0;
+		set $h 0;
+		if ($args ~ ^imageView/(\d+)x(\d+)$) {
+			set $w $1;
+			set $h $2;
+		}
+		if ($w ~ ^([0]+)$) {
+		       	set $flag 0;
+		}
+		if ($h ~ ^([0]+)$) {
+			set $flag 0;
+		}
+		if ($flag = 1) {
+			rewrite /(.+)\.(jpg|gif|png)$ /imageResize?img=$1.$2&w=$w&h=$h last;
+		}
+		try_files $uri /4042.html;
+		
+	}	
+
+
+
+}
+

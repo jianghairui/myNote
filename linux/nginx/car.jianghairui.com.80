@@ -1,0 +1,39 @@
+server {
+	listen 80;
+	server_name car.jianghairui.com;
+
+	# 配置日志文件
+	access_log /var/www/car.jianghairui.com/public/access.log combined;
+	error_log /var/www/car.jianghairui.com/public/error.log;
+
+	root /var/www/car.jianghairui.com/public;
+	index index.html index.htm index.php;
+
+	fastcgi_intercept_errors on;
+
+        #error_page 404 /404.html;
+
+        location / {
+            if (!-e $request_filename) {
+                rewrite ^/(.*)$ /index.php/$1 last;
+                break;
+            }
+            #try_files $uri $uri/ =404;
+        }
+
+        location ~ [^/]\.php(/|$) {
+            fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+            fastcgi_param PATH_INFO $fastcgi_path_info;
+            include fastcgi.conf;
+            include snippets/fastcgi-php.conf;
+
+            fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+        }
+
+        location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$ {
+            add_header Cache-Control  max-age=86400;
+        }
+
+
+}
+
